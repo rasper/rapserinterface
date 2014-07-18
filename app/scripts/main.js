@@ -57,18 +57,24 @@ function setupchart(label,data){
 
 //sit duration
 $('a.sit-duration').on('click',function(){
-  $.get( "http://"+pi_server+"/sit-duration/" , {
-    format: "json"
-  },function(duration){
-    if (duration == 0){
-      $('p.sit-duration').empty();
-      // https://imgflip.com/i/af5wf
-      $('img.sit-duration').show();
-    }else{
-      $('p.sit-duration').empty().append(duration);
-      $('img.sit-duration').hide();
-    };
-  });
+  setInterval(function(){
+    $.get( "http://"+pi_server+"/sit-duration/" , {
+      format: "json"
+    },function(duration){
+      if (duration == 0){
+        $('span.sit-duration').empty();
+        $('small.sit-duration').hide();
+        // https://imgflip.com/i/af5wf
+        $('img.sit-duration').show();
+        $('#myChart').hide();
+      }else{
+        $('span.sit-duration').empty().prepend(duration);
+        $('small.sit-duration').show();
+        $('img.sit-duration').hide();
+        $('#myChart').hide();
+      };
+    });
+  },3000);
 });
 
 
