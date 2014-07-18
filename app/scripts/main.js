@@ -1,5 +1,6 @@
 var displayData = [];
 var dateLabel = [];
+var pi_server = "192.168.43.174:8000"
 
 var options = {
 
@@ -44,21 +45,54 @@ var options = {
 
 };
 
-var data = 0; 
-//how long i have been sitting
+function setupchart(label,data){
+  var displayData = {
+    labels: dateLabel,
+    datasets: [
+      {
+
+        label: "My Sitting Report",
+        fillColor: "rgba(220,220,220,0.2)",
+        strokeColor: "rgba(220,220,220,1)",
+        pointColor: "rgba(220,220,220,1)",
+        pointStrokeColor: "#fff",
+        pointHighlightFill: "#fff",
+        pointHighlightStroke: "rgba(220,220,220,1)",
+        data: data
+      }
+    ]
+  };
+}
+
+//sit duration
 $('a.sit-duration').on('click',function(){
-  // $.get( "" , {}, function(data){
-    if (data == 0){
+  //$.get( "http://"+pi_server+"/duration" , {}, function(duration){
+    if (duration == 0){
       $('p.sit-duration').empty();
       // https://imgflip.com/i/af5wf
       $('img.sit-duration').show();
-      data++;
+      duration++;
     }else{
-      $('p.sit-duration').empty().append(data);
+      $('p.sit-duration').empty().append(duration);
       $('img.sit-duration').hide();
-      data --;
+      duration --;
     }
-  // };
+  //};
 });
 
+
 //sitting report
+var html="";
+$('a.sit-report').on('click',function(){
+  // $.get( "" , {}, function(report){
+    report={"hourly": 2,
+            "daily": 50,
+            "weekly": 250,
+            "monthly": 1000,
+            "annually": 12000};
+    $.each(report, function(key, value) { 
+      html+=key + "\t->\t" + value + "minutes<br>"; 
+    });
+    $('p.sit-report').empty().append(html);
+  // };
+});
