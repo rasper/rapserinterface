@@ -16,15 +16,28 @@
     <!-- endbuild -->
   </head>
   <body>
-      
-    <a href="#" class="btn btn-primary sit-report" role="button">Sit Report</a>
-    <p class="sit-report"></p>
-    <img class="sit-report" src="https://i.imgflip.com/af5wf.jpg" style="display: none">
-    <canvas id="myChart" width="400" height="400"></canvas>
+    
+    <div class="row">
+      <sidebar class="col-lg-3">
+        <div class="btn-group-vertical">
+          <button type="button" class="btn btn-default sit-report">Sit Report</button>
+          <button type="button" class="btn btn-default sit-duration">How long have I been sitting?</button>
+        </div>
+      </sidebar>
+      <main class="col-lg-9">
+        
+        <p class="sit-report"></p>
 
-    <a href="#" class="btn btn-primary sit-duration" role="button">How long have I been sitting?</a>
-    <p class="sit-duration"></p>
-    <img class="sit-duration" src="https://i.imgflip.com/af5wf.jpg" style="display: none">
+        <p><span class="sit-duration" style="font-family: sit-duration-number; font-weight:bold;font-size: 20em"></span><small class="sit-duration" style="font-size: 5em; display: none">min</small></p>
+        <img class="sit-duration" src="https://i.imgflip.com/af5wf.jpg" style="display: none">
+
+        <canvas id="myChart" width="400" height="400" style="display: none"></canvas>
+        
+      </main>
+
+    </div>
+
+
 
 
 

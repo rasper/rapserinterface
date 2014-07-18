@@ -2,7 +2,7 @@ var displayData = [];
 var dateLabel = [];
 //var pi_server = "192.168.43.174:8000"
 var pi_server = "192.168.43.95:8000"
-
+var id_sitDurationInterval;
 
 
 function setupchart(label,data){
@@ -56,22 +56,21 @@ function setupchart(label,data){
 }
 
 //sit duration
-$('a.sit-duration').on('click',function(){
-  setInterval(function(){
+$('button.sit-duration').on('click',function(){
+  $('main .sit-report').hide();
+  $('main #myChart').hide();
+  id_sitDurationInterval=setInterval(function(){
     $.get( "http://"+pi_server+"/sit-duration/" , {
       format: "json"
     },function(duration){
       if (duration == 0){
-        $('span.sit-duration').empty();
-        $('small.sit-duration').hide();
-        // https://imgflip.com/i/af5wf
-        $('img.sit-duration').show();
-        $('#myChart').hide();
+        $('main span.sit-duration').empty();
+        $('main small.sit-duration').hide();
+        $('main img.sit-duration').show();
       }else{
-        $('span.sit-duration').empty().prepend(duration);
-        $('small.sit-duration').show();
-        $('img.sit-duration').hide();
-        $('#myChart').hide();
+        $('main span.sit-duration').empty().prepend(duration).show();
+        $('main small.sit-duration').show();
+        $('main img.sit-duration').hide();
       };
     });
   },3000);
@@ -79,7 +78,8 @@ $('a.sit-duration').on('click',function(){
 
 
 //sitting report
-$('a.sit-report').on('click',function(){
+$('button.sit-report').on('click',function(){
+    clearInterval(id_sitDurationInterval);
   // $.get( "" , {}, function(report){
     report={"hourly": 2,
             "daily": 50,
@@ -90,6 +90,10 @@ $('a.sit-report').on('click',function(){
     $.each(report, function(key, value) { 
       html+=key + "\t->\t" + value + "minutes<br>"; 
     });
-    $('p.sit-report').empty().append(html);
+    $('main p.sit-report').empty().append(html).show();
+
+    $('main #myChart').hide();
+    $('main .sit-duration').hide();
+
   // };
 });
