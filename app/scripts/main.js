@@ -134,7 +134,7 @@ $("#theParameters").submit(function(event) {
       url = $form.attr( 'action' );
 
   /* Send the data using post */
-  var posting = $.post( url, { cooldown_param: $('#cooldown-param').val(), burnup_param: $('#burnup-param').val() } );
+  var posting = $.post( url, { cooldown_timeout: $('#cooldown-param').val(), burnup_timeout: $('#burnup-param').val() } );
 
   /* Put the results in a div */
   posting.done(function( data ) {
@@ -172,21 +172,29 @@ $('.today a').click(function (e) {
     0,0,47,60,60,60,
     0,0,0,0,0,0,0];
   setupchart(label,data);
-})
+});
 
 
 $('.week a').click(function (e) {
   e.preventDefault();
   $(this).tab('show');
   
-})
+});
 
 
 $('.month a').click(function (e) {
   e.preventDefault();
   $(this).tab('show');
-  var label = [];
-})
+  var label = ["1","2","3","4","5","6","7","8","9","10",
+                "11","12","13","14","15","16","17","18","19","20",
+                "21","22","23","24","25","26","27","28","29","30",];
+  var data = [5,6,7,5,6,0,0,
+              6,2,6,7,8,3,0,
+              5,5,5,6,7.0,0,
+              7,6,5,6,0,0,
+              2,5];
+  setupchart(label,data);
+});
 
 
 $('.year a').click(function (e) {
@@ -195,4 +203,5 @@ $('.year a').click(function (e) {
   var label = ["January", "February","March","April","May","June","July","August","September","October","November","December"];
   var data =[120,111,117,80,120,140,155,122,99,100,112,124];
   setupchart(label,data);
-})
+
+});
