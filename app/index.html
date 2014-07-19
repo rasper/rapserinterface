@@ -19,9 +19,10 @@
     
     <div class="row">
       <sidebar class="col-lg-3">
-        <div class="btn-group-vertical">
+        <div class="btn-group-vertical l-display-block">
           <button type="button" class="btn btn-default sit-report">Sit Report</button>
           <button type="button" class="btn btn-default sit-duration">How long have I been sitting?</button>
+          <button type="button" class="btn btn-default change-params">Edit my seat</button>
         </div>
       </sidebar>
       <main class="col-lg-9">
@@ -32,6 +33,12 @@
         <img class="sit-duration" src="https://i.imgflip.com/af5wf.jpg" style="display: none">
 
         <canvas id="myChart" width="400" height="400" style="display: none"></canvas>
+
+        <form id="theParameters" name="input" action="demo_form_action.asp" method="post" style="display: none">
+          Cooldown time: <input type="text" id="cooldown-param" name="cooldown-param">
+          Burnup time: <input type="text" id= "burnup-param" name="burnup-param">
+          <input type="submit" value="Submit">
+        </form>
         
       </main>
 

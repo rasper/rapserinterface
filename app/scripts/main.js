@@ -57,8 +57,10 @@ function setupchart(label,data){
 
 //sit duration
 $('button.sit-duration').on('click',function(){
+  $('button.sit-duration').addClass('sidebar-hover');
   $('main .sit-report').hide();
   $('main #myChart').hide();
+  $('#theParameters').hide();
   id_sitDurationInterval=setInterval(function(){
     $.get( "http://"+pi_server+"/sit-duration/" , {
       format: "json"
@@ -79,7 +81,11 @@ $('button.sit-duration').on('click',function(){
 
 //sitting report
 $('button.sit-report').on('click',function(){
-    clearInterval(id_sitDurationInterval);
+  clearInterval(id_sitDurationInterval);
+  $('button').removeClass('sidebar-hover');
+  $('main #myChart').hide();
+  $('main .sit-duration').hide();
+  $('#theParameters').hide();
   // $.get( "" , {}, function(report){
     report={"hourly": 2,
             "daily": 50,
@@ -92,8 +98,33 @@ $('button.sit-report').on('click',function(){
     });
     $('main p.sit-report').empty().append(html).show();
 
-    $('main #myChart').hide();
-    $('main .sit-duration').hide();
 
   // };
+});
+
+//posting new params
+$('button.change-params').on('click',function(){
+  clearInterval(id_sitDurationInterval);
+  $('main .sit-duration').hide();
+  $('main .sit-report').hide();
+  $('main #myChart').hide();
+  $('#theParameters').show();
+});
+//ajax post to chagne params
+$("#theParameters").submit(function(event) {
+
+  /* stop form from submitting normally */
+  event.preventDefault();
+
+  /* get some values from elements on the page: */
+  var $form = $( this ),
+      url = $form.attr( 'action' );
+
+  /* Send the data using post */
+  var posting = $.post( url, { cooldown_param: $('#cooldown-param').val(), burnup_param: $('#burnup-param').val() } );
+
+  /* Put the results in a div */
+  posting.done(function( data ) {
+    alert('success');
+  });
 });
