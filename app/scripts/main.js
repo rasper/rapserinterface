@@ -2,6 +2,8 @@ var displayData = [];
 var dateLabel = [];
 //var pi_server = "192.168.43.174:8000"
 var pi_server = "192.168.43.95:8000"
+var minUnit = '<small class="sit-duration" style="font-size: 0.3em; display: none">min</small>'
+var hourUnit = '<small class="sit-duration" style="font-size: 0.3em; display: none">hr</small>'
 var id_sitDurationInterval;
 
 
@@ -69,8 +71,15 @@ $('button.sit-duration').on('click',function(){
         $('main span.sit-duration').empty();
         $('main small.sit-duration').hide();
         $('main img.sit-duration').show();
+      }else if(duration>=60){
+        var html = Math.floor(duration/60) + hourUnit + duration%60 + minUnit;
+        console.log(html);
+        $('main span.sit-duration').empty().prepend(html).show();
+        $('main small.sit-duration').show();
+        $('main img.sit-duration').hide();
       }else{
-        $('main span.sit-duration').empty().prepend(duration).show();
+        var html = duration + minUnit;
+        $('main span.sit-duration').empty().prepend(html).show();
         $('main small.sit-duration').show();
         $('main img.sit-duration').hide();
       };
@@ -82,24 +91,23 @@ $('button.sit-duration').on('click',function(){
 //sitting report
 $('button.sit-report').on('click',function(){
   clearInterval(id_sitDurationInterval);
-  $('button').removeClass('sidebar-hover');
   $('main #myChart').hide();
   $('main .sit-duration').hide();
   $('#theParameters').hide();
-  // $.get( "" , {}, function(report){
-    report={"hourly": 2,
-            "daily": 50,
-            "weekly": 250,
-            "monthly": 1000,
-            "annually": 12000};
+  $.get( "http://"+pi_server+"/sit-report/" , {
+    format: "json"
+  }, function(report){
+    // report={"hourly": 2,
+    //         "daily": 50,
+    //         "weekly": 250,
+    //         "monthly": 1000,
+    //         "annually": 12000};
     var html="";
     $.each(report, function(key, value) { 
-      html+=key + "\t->\t" + value + "minutes<br>"; 
+      html+=key + "\t->\t" + value + "minutes<br>";
     });
     $('main p.sit-report').empty().append(html).show();
-
-
-  // };
+  });
 });
 
 //posting new params
@@ -125,6 +133,6 @@ $("#theParameters").submit(function(event) {
 
   /* Put the results in a div */
   posting.done(function( data ) {
-    alert('success');
+    alert('parameters updated!');
   });
 });
