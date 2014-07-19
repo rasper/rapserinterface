@@ -2,8 +2,9 @@ var displayData = [];
 var dateLabel = [];
 //var pi_server = "192.168.43.174:8000"
 var pi_server = "192.168.43.95:8000"
-var minUnit = '<small class="sit-duration" style="font-size: 0.3em; display: none">min</small>'
-var hourUnit = '<small class="sit-duration" style="font-size: 0.3em; display: none">hr</small>'
+var secUnit = '<small class="sit-duration" style="font-size: 0.3em;">s</small>'
+var minUnit = '<small class="sit-duration" style="font-size: 0.3em;">min</small>'
+var hourUnit = '<small class="sit-duration" style="font-size: 0.3em;">hr</small>'
 var id_sitDurationInterval;
 
 
@@ -54,12 +55,12 @@ function setupchart(label,data){
   };
 
   var ctx = document.getElementById("myChart").getContext("2d");
-  var myLineChart = new Chart(ctx).Line(data, options);
+  var myLineChart = new Chart(ctx).Line(displayData, options);
 }
 
 //sit duration
 $('button.sit-duration').on('click',function(){
-  $('button.sit-duration').addClass('sidebar-hover');
+  $('main .sit-activity').hide();
   $('main .sit-report').hide();
   $('main #myChart').hide();
   $('#theParameters').hide();
@@ -67,30 +68,32 @@ $('button.sit-duration').on('click',function(){
     $.get( "http://"+pi_server+"/sit-duration/" , {
       format: "json"
     },function(duration){
+      console.log("lol");
       if (duration == 0){
         $('main span.sit-duration').empty();
         $('main small.sit-duration').hide();
         $('main img.sit-duration').show();
       }else if(duration>=60){
-        var html = Math.floor(duration/60) + hourUnit + duration%60 + minUnit;
+        var html = Math.floor(duration/60) + minUnit + duration%60 + secUnit;
         console.log(html);
         $('main span.sit-duration').empty().prepend(html).show();
         $('main small.sit-duration').show();
         $('main img.sit-duration').hide();
       }else{
-        var html = duration + minUnit;
+        var html = duration + secUnit;
         $('main span.sit-duration').empty().prepend(html).show();
         $('main small.sit-duration').show();
         $('main img.sit-duration').hide();
       };
     });
-  },3000);
+  },1000);
 });
 
 
 //sitting report
 $('button.sit-report').on('click',function(){
   clearInterval(id_sitDurationInterval);
+  $('main .sit-activity').hide();
   $('main #myChart').hide();
   $('main .sit-duration').hide();
   $('#theParameters').hide();
@@ -103,9 +106,10 @@ $('button.sit-report').on('click',function(){
     //         "monthly": 1000,
     //         "annually": 12000};
     var html="";
-    $.each(report, function(key, value) { 
-      html+=key + "\t->\t" + value + "minutes<br>";
-    });
+    // $.each(report, function(key, value) { 
+      console.log(Math.floor(report["daily"]/60));
+      html= "You have been sitting for <br>"+'<span class="sit-duration" style="font-family: sit-duration-number; font-weight:bold;font-size: 5em">'+Math.floor(report["daily"]/60) + hourUnit + report["daily"]%60 + minUnit +'</span>' +"<br>today!";
+    // });
     $('main p.sit-report').empty().append(html).show();
   });
 });
@@ -113,6 +117,7 @@ $('button.sit-report').on('click',function(){
 //posting new params
 $('button.change-params').on('click',function(){
   clearInterval(id_sitDurationInterval);
+  $('main .sit-activity').hide();
   $('main .sit-duration').hide();
   $('main .sit-report').hide();
   $('main #myChart').hide();
@@ -136,3 +141,58 @@ $("#theParameters").submit(function(event) {
     alert('parameters updated!');
   });
 });
+
+//sitting activity
+$('button.sit-activity').on('click',function(){
+  clearInterval(id_sitDurationInterval);
+  $('main .sit-report').hide();
+  $('main .sit-duration').hide();
+  $('#theParameters').hide();
+  $('main .sit-activity li').each(function(){
+    $(this).removeClass('active');
+  });
+  $('main .sit-activity li.week').addClass('active');
+  $('main .sit-activity').show();
+
+  $('main #myChart').show();
+  var label=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+  var data = [500,488,580,300,444,0,0];
+  setupchart(label,data);
+});
+
+$('.today a').click(function (e) {
+  e.preventDefault();
+  $(this).tab('show');
+  var label=['1am','2am','3am','4am','5am','6am',
+    '7am','8am','9am','10am','11am',
+    '12pm','1pm','2pm','3pm','4pm','5pm',
+    '6pm','7pm','8pm','9pm','10pm','11pm','12am'];
+  var data = [0,0,0,0,0,0,
+    50,60,45,10,60,
+    0,0,47,60,60,60,
+    0,0,0,0,0,0,0];
+  setupchart(label,data);
+})
+
+
+$('.week a').click(function (e) {
+  e.preventDefault();
+  $(this).tab('show');
+  
+})
+
+
+$('.month a').click(function (e) {
+  e.preventDefault();
+  $(this).tab('show');
+  var label = [];
+})
+
+
+$('.year a').click(function (e) {
+  e.preventDefault();
+  $(this).tab('show');
+  var label = ["January", "February","March","April","May","June","July","August","September","October","November","December"];
+  var data =[120,111,117,80,120,140,155,122,99,100,112,124];
+  setupchart(label,data);
+})
