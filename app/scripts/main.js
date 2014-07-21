@@ -1,7 +1,7 @@
 var displayData = [];
 var dateLabel = [];
-//var pi_server = "192.168.43.174:8000"
-var pi_server = "192.168.43.95:8000"
+var pi_server = "192.168.43.174:8000"
+//var pi_server = "192.168.43.95:8000"
 var secUnit = '<small class="sit-duration" style="font-size: 0.3em;">s</small>'
 var minUnit = '<small class="sit-duration" style="font-size: 0.3em;">min</small>'
 var hourUnit = '<small class="sit-duration" style="font-size: 0.3em;">hr</small>'
@@ -97,6 +97,7 @@ $('button.sit-report').on('click',function(){
   $('main #myChart').hide();
   $('main .sit-duration').hide();
   $('#theParameters').hide();
+  $('main img.sit-duration').hide();
   $.get( "http://"+pi_server+"/sit-report/" , {
     format: "json"
   }, function(report){
@@ -108,7 +109,7 @@ $('button.sit-report').on('click',function(){
     var html="";
     // $.each(report, function(key, value) { 
       console.log(Math.floor(report["daily"]/60));
-      html= "You have been sitting for <br>"+'<span class="sit-duration" style="font-family: sit-duration-number; font-weight:bold;font-size: 5em">'+Math.floor(report["daily"]/60) + hourUnit + report["daily"]%60 + minUnit +'</span>' +"<br>today!";
+      html= "You have been sitting for <br>"+'<span class="sit-duration" style="font-family: sit-duration-number; font-weight:bold;font-size: 10em">'+Math.floor(report["daily"]/60) + hourUnit + report["daily"]%60 + minUnit +'</span>' +"<br>today!";
     // });
     $('main p.sit-report').empty().append(html).show();
   });
@@ -125,6 +126,11 @@ $('button.change-params').on('click',function(){
 });
 //ajax post to chagne params
 $("#theParameters").submit(function(event) {
+  clearInterval(id_sitDurationInterval);
+  $('main .sit-report').hide();
+  $('main .sit-duration').hide();
+  $('#theParameters').hide();
+  $('main img.sit-duration').hide();
 
   /* stop form from submitting normally */
   event.preventDefault();
@@ -148,6 +154,7 @@ $('button.sit-activity').on('click',function(){
   $('main .sit-report').hide();
   $('main .sit-duration').hide();
   $('#theParameters').hide();
+  $('main img.sit-duration').hide();
   $('main .sit-activity li').each(function(){
     $(this).removeClass('active');
   });
@@ -161,28 +168,47 @@ $('button.sit-activity').on('click',function(){
 });
 
 $('.today a').click(function (e) {
+  clearInterval(id_sitDurationInterval);
+  $('main .sit-report').hide();
+  $('main .sit-duration').hide();
+  $('#theParameters').hide();
+  $('main img.sit-duration').hide();
   e.preventDefault();
   $(this).tab('show');
-  var label=['1am','2am','3am','4am','5am','6am',
+  var todayDate = moment(new Date());
+  $.get( "http://"+pi_server+"/sit-daily-activity/" , {
+    format: "json", 
+    date: todayDate.year() + "-"+(parseInt(todayDate.month())+1) + "-" + todayDate.date()
+  },function(data){
+    var label=['1am','2am','3am','4am','5am','6am',
     '7am','8am','9am','10am','11am',
     '12pm','1pm','2pm','3pm','4pm','5pm',
     '6pm','7pm','8pm','9pm','10pm','11pm','12am'];
-  var data = [0,0,0,0,0,0,
-    50,60,45,10,60,
-    0,0,47,60,60,60,
-    0,0,0,0,0,0,0];
-  setupchart(label,data);
+    setupchart(label,data);
+  });
 });
 
 
 $('.week a').click(function (e) {
+  clearInterval(id_sitDurationInterval);
+  $('main .sit-report').hide();
+  $('main .sit-duration').hide();
+  $('#theParameters').hide();
+  $('main img.sit-duration').hide();
   e.preventDefault();
   $(this).tab('show');
-  
+  var label=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+  var data = [500,488,580,300,444,0,0];
+  setupchart(label,data);
 });
 
 
 $('.month a').click(function (e) {
+  clearInterval(id_sitDurationInterval);
+  $('main .sit-report').hide();
+  $('main .sit-duration').hide();
+  $('#theParameters').hide();
+  $('main img.sit-duration').hide();
   e.preventDefault();
   $(this).tab('show');
   var label = ["1","2","3","4","5","6","7","8","9","10",
@@ -198,6 +224,11 @@ $('.month a').click(function (e) {
 
 
 $('.year a').click(function (e) {
+  clearInterval(id_sitDurationInterval);
+  $('main .sit-report').hide();
+  $('main .sit-duration').hide();
+  $('#theParameters').hide();
+  $('main img.sit-duration').hide();
   e.preventDefault();
   $(this).tab('show');
   var label = ["January", "February","March","April","May","June","July","August","September","October","November","December"];
