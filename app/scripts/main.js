@@ -1,7 +1,7 @@
 var displayData = [];
 var dateLabel = [];
-var pi_server = "192.168.43.174:8000"
-//var pi_server = "192.168.43.95:8000"
+//var pi_server = "192.168.43.174:8000"
+var pi_server = "192.168.43.95:8000"
 var secUnit = '<small class="sit-duration" style="font-size: 0.3em;">s</small>'
 var minUnit = '<small class="sit-duration" style="font-size: 0.3em;">min</small>'
 var hourUnit = '<small class="sit-duration" style="font-size: 0.3em;">hr</small>'
