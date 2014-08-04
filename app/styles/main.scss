@@ -27,7 +27,6 @@ body {
 
 /* Custom page header */
 .header {
-    border-bottom: 1px solid #e5e5e5;
 
     /* Make the masthead heading the same height as the navigation */
     h3 {
@@ -95,4 +94,23 @@ body {
 @font-face {
     font-family: sit-duration-number;
     src: url(http://www.fontspace.com/psyops/crash-numbering#?text=&fontsize=153&foreground=000000&background=FFFFFF);
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+.sidebar {
+  display: block;
+  width: 100%;
+}
+
+.sit-activity-time-range li {
+  width: 25%;
+  font-size: 2em;
+  text-align: center;
 }
