@@ -38,6 +38,8 @@ function setupchart(label,data){
     scaleGridLineColor : "rgba(0,0,0,.5)",
     //Number - Width of the grid lines
     scaleGridLineWidth : 1,
+    // scale color
+    scaleFontColor: "#000",
     //Boolean - Whether the line is curved between points
     bezierCurve : true,
     //Number - Tension of the bezier curve between points
@@ -56,6 +58,10 @@ function setupchart(label,data){
     datasetStrokeWidth : 2,
     //Boolean - Whether to fill the dataset with a colour
     datasetFill : true,
+    //axis reading font-size
+    scaleFontSize: 20,
+    // graph scale according to browser size
+    responsive: true,
   };
 
   var ctx = document.getElementById("myChart").getContext("2d");
