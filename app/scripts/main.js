@@ -246,3 +246,11 @@ $('.year a').click(function (e) {
   setupchart(label,data);
 
 });
+
+// things to run on document startup
+$(document).ready(function(){
+  $.get("http://"+pi_server+"/update-config/", function(data){
+    $("#cooldown-param").attr("value", data["cooldown_timeout"]);
+    $("#burnup-param").attr("value", data["burnup_timeout"]);
+  });
+});
