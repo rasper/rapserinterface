@@ -159,12 +159,12 @@ body {
 
 // bootstrap override
 .btn-default {
-  color: #333333;
+  color: #fa0000;
   background-color: white;
   border-color: #cccccc; }
   .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {
-    color: #333333;
-    background-color: #e6e6e6;
+    color: #000;
+    background-color: #fa0000;
     border-color: #adadad; }
   .btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {
     background-image: none; }
@@ -172,5 +172,5 @@ body {
     background-color: white;
     border-color: #cccccc; }
   .btn-default .badge {
-    color: white;
+    color: #fa0000;
     background-color: #333333; }
