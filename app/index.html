@@ -16,37 +16,34 @@
     <!-- endbuild -->
   </head>
   <body class="no-padding">
-    <div class="header" style="background:black"><img src="images/RasperLogo.png" ></div>
+    <div class="header no-margin" style="background:black"><img src="images/RasperLogo.png" ></div>
     <div class="row no-margin">
-      <sidebar class="col-lg-3">
-        <div class="btn-group-vertical l-display-block">
+      <sidebar class="col-md-3 no-padding">
+        <div class="btn-group-vertical sidebar">
           <button type="button" class="btn btn-default sit-report" style="font-size:2em">Sit report for today</button>
           <button type="button" class="btn btn-default sit-duration" style="font-size:2em">How long have I been sitting?</button>
           <button type="button" class="btn btn-default change-params" style="font-size:2em">My seat manager</button>
           <button type="button" class="btn btn-default sit-activity" style="font-size:2em">Am I sitting too long?</button>
         </div>
       </sidebar>
-      <main class="col-lg-9">
+      <main class="col-md-9">
         
         <p class="sit-report" style="font-size:2em;display: none"></p>
 
         <p><span class="sit-duration" style="font-family: sit-duration-number; font-weight:bold;font-size: 20em"></span></p>
         <img class="sit-duration" src="https://i.imgflip.com/af5wf.jpg" style="display: none;width: 900px; height:auto">
 
-        <div class="sit-activity" style="display: none">
+        <div class="sit-activity sit-activity-div" style="display: none">
           <div class="row">
-          <ul class="nav nav-tabs" role="tablist">
-            <li class="today"><a href="#">Today</a></li>
-            <li class="active week"><a href="#">This week</a></li>
-            <li class="month"><a href="#">This month</a></li>
-            <li class="year"><a href="#">This year</a></li>
-          </ul>
+            <ul class="nav nav-tabs sit-activity-time-range" role="tablist">
+              <li class="today"><a href="#">Today</a></li>
+              <li class="active week"><a href="#">This week</a></li>
+              <li class="month"><a href="#">This month</a></li>
+              <li class="year"><a href="#">This year</a></li>
+            </ul>
           </div>
-          <div class="row">
-            <canvas id="myChart" width="800" height="550" style="display: none"></canvas>
-          </div>
+          <canvas id="myChart" width="960" height="800" style="display: none"></canvas>
         </div>
-
 
         <form id="theParameters" name="input" action="http://192.168.43.95:8000/configuration/" method="post" style="display: none">
           Cooldown time: <input type="text" id="cooldown-param" name="cooldown_timeout">

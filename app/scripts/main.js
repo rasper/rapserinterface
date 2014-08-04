@@ -9,6 +9,12 @@ var id_sitDurationInterval;
 
 
 function setupchart(label,data){
+  $('#myChart').remove();
+  var canvasNode = $(document.createElement('canvas'))
+  canvasNode.attr('id', 'myChart');
+  canvasNode.attr('width', '960');
+  canvasNode.attr('height', '800');
+  $('.sit-activity-div').append(canvasNode);
   var displayData = {
     labels: label,
     datasets: [
@@ -50,8 +56,6 @@ function setupchart(label,data){
     datasetStrokeWidth : 2,
     //Boolean - Whether to fill the dataset with a colour
     datasetFill : true,
-    //String - A legend template
-    legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
   };
 
   var ctx = document.getElementById("myChart").getContext("2d");
