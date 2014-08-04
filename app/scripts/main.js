@@ -12,20 +12,20 @@ function setupchart(label,data){
   $('#myChart').remove();
   var canvasNode = $(document.createElement('canvas'))
   canvasNode.attr('id', 'myChart');
-  canvasNode.attr('width', '960');
-  canvasNode.attr('height', '800');
+  canvasNode.attr('width', '1000');
+  canvasNode.attr('height', '600');
   $('.sit-activity-div').append(canvasNode);
   var displayData = {
     labels: label,
     datasets: [
       {
         label: "My Sitting Report",
-        fillColor: "rgba(220,220,220,0.2)",
-        strokeColor: "rgba(220,220,220,1)",
+        fillColor: "rgba(250,0,0,0.5)",
+        strokeColor: "rgba(255,0,0,1)",
         pointColor: "rgba(220,220,220,1)",
-        pointStrokeColor: "#fff",
-        pointHighlightFill: "#fff",
-        pointHighlightStroke: "rgba(220,220,220,1)",
+        pointStrokeColor: "#000",
+        pointHighlightFill: "#000",
+        pointHighlightStroke: "rgba(0,0,0,1)",
         data: data
       }
     ]
@@ -35,7 +35,7 @@ function setupchart(label,data){
     ///Boolean - Whether grid lines are shown across the chart
     scaleShowGridLines : true,
     //String - Colour of the grid lines
-    scaleGridLineColor : "rgba(0,0,0,.05)",
+    scaleGridLineColor : "rgba(0,0,0,.5)",
     //Number - Width of the grid lines
     scaleGridLineWidth : 1,
     //Boolean - Whether the line is curved between points
