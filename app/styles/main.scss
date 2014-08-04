@@ -1,5 +1,7 @@
 $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
 
+$rasper-red: #c93f4a;
+
 // bower:scss
 @import "../../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
 // endbower
@@ -114,13 +116,12 @@ body {
 }
 
 .sit-activity-time-range li a:hover {
-  background: #fa0000;
+  background: $rasper-red;
   color: black;
 }
 
 .sit-activity-time-range li  a {  
-  color: #fa0000;
-
+  color: $rasper-red;
 }
 
 #myChart {
@@ -148,29 +149,26 @@ body {
 }
 
 .btn-group-vertical.sidebar > button:hover {
-  background: #fa0000;
+  background: $rasper-red;
   color: black;
 }
 
 .btn-group-vertical.sidebar > button.active {
-  background: #fa0000;
-  color: black;
+  background: black;
+  color: $rasper-red;
 }
 
 // bootstrap override
 .btn-default {
-  color: #fa0000;
+  color: $rasper-red;
   background-color: white;
   border-color: #cccccc; }
   .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {
-    color: #000;
-    background-color: #fa0000;
+    color: white;
+    background-color: #000;
     border-color: #adadad; }
   .btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {
     background-image: none; }
   .btn-default.disabled, .btn-default.disabled:hover, .btn-default.disabled:focus, .btn-default.disabled:active, .btn-default.disabled.active, .btn-default[disabled], .btn-default[disabled]:hover, .btn-default[disabled]:focus, .btn-default[disabled]:active, .btn-default[disabled].active, fieldset[disabled] .btn-default, fieldset[disabled] .btn-default:hover, fieldset[disabled] .btn-default:focus, fieldset[disabled] .btn-default:active, fieldset[disabled] .btn-default.active {
     background-color: white;
     border-color: #cccccc; }
-  .btn-default .badge {
-    color: #fa0000;
-    background-color: #333333; }
